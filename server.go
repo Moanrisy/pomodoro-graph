@@ -44,10 +44,10 @@ func GetAllPomodoroActivity() {
 
 	defer rows.Close()
 	defer db.Close()
-	var pomodoros pomodoro
+	var pomodoros Pomodoro
 	for rows.Next() {
 
-		err = rows.Scan(&pomodoros.id, &pomodoros.inserted_at, &pomodoros.updated_at, &pomodoros.date, &pomodoros.id)
+		err = rows.Scan(&pomodoros.Id, &pomodoros.Inserted_at, &pomodoros.Updated_at, &pomodoros.Date, &pomodoros.Counter)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -55,12 +55,26 @@ func GetAllPomodoroActivity() {
 	}
 }
 
-type pomodoro struct {
-	id          int
-	inserted_at string
-	updated_at  string
-	date        string
-	counter     int
+func PostIncrementPomodoro(pomodoro *Pomodoro) string {
+	res := "Increment pomodoro succesfull"
+	db := connectDB()
+
+	insertStatement := `INSERT INTO pomodoro(date, counter) VALUES ($1, $2)`
+	_, err := db.Exec(insertStatement, pomodoro.Date, pomodoro.Counter)
+	if err != nil {
+		// log.Fatal(err)
+		log.Println(err)
+		res = fmt.Sprintf("Increment pomodoro failed\n %s", err)
+	}
+	return res
+}
+
+type Pomodoro struct {
+	Id          int
+	Inserted_at string
+	Updated_at  string
+	Date        string `json:"date"`
+	Counter     int    `json:"counter"`
 }
 
 func main() {
@@ -82,6 +96,18 @@ func main() {
 		return c.Render("index", fiber.Map{
 			"Title": "Hello, World!",
 		}, "layouts/pomodoro")
+	})
+
+	app.Post("/increment", func(c *fiber.Ctx) error {
+		p := new(Pomodoro)
+
+		if err := c.BodyParser(p); err != nil {
+			log.Fatal(err)
+		}
+
+		res := PostIncrementPomodoro(p)
+
+		return c.Send([]byte(res))
 	})
 
 	app.Get("/layout", func(c *fiber.Ctx) error {
