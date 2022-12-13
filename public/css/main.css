@@ -38,6 +38,7 @@ ul {
 .months {
   display: grid;
   grid-template-columns:
+  /* SOMEDAY Update hard coded months column with function */
     calc(var(--week-width) * 3) /* Dec */
     calc(var(--week-width) * 5) /* Nov */
     calc(var(--week-width) * 4) /* Oct */

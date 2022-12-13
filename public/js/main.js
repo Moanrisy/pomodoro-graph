@@ -62,6 +62,7 @@ for (var i = 1; i < 367; i++) {
     repeatedMonth = false
   }
 
+  // TODO update with real database
   const level = Math.floor(Math.random() * 3);
   squares.insertAdjacentHTML(
     "beforeend",
