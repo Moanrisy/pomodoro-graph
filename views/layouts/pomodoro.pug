@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Pomodoro
+    include ../partials/meta.pug
+    link(rel="stylesheet" href="css/main.css")
+    //- link(rel="stylesheet" href="https://unpkg.com/chota@latest")
+    link(rel="stylesheet" href="https://unpkg.com/mustard-ui@latest/dist/css/mustard-ui.min.css")
+
+  body
+    div.container
+      h3 My pomodoro activity
+      p Hover your mouse to see the detail
+      body
+      |
+      |
+      .graph
+        ul.months
+        ul.days
+          li Sun
+          li Mon
+          li Tue
+          li Wed
+          li Thu
+          li Fri
+          li Sat
+        ul.squares
+          // added via javascript
+
+  script(src="js/main.js")
