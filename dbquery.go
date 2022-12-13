@@ -2,9 +2,9 @@ package main
 
 import (
 	"database/sql"
-	"os"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -29,7 +29,7 @@ func connectDB() *sql.DB {
 	if err = db.Ping(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Successfully connected to the database!")
+	// fmt.Println("Successfully connected to the database!")
 	return db
 }
 
@@ -44,7 +44,7 @@ func GetAllPomodoroActivity() []Pomodoro {
 	defer db.Close()
 
 	var pomodoros []Pomodoro
-	
+
 	for rows.Next() {
 		var pomodoro Pomodoro
 
@@ -58,11 +58,12 @@ func GetAllPomodoroActivity() []Pomodoro {
 }
 
 func AddPomodoro(pomodoro *Pomodoro) string {
-	res := "Increment pomodoro succesfull"
+	res := "Add pomodoro succesfull"
 	db := connectDB()
+	defer db.Close()
 
 	insertStatement := `INSERT INTO pomodoro(date, counter) VALUES ($1, $2)`
-	_, err := db.Exec(insertStatement, pomodoro.Date, pomodoro.Counter)
+	_, err := db.Exec(insertStatement, pomodoro.Date, 1)
 	if err != nil {
 		// log.Fatal(err)
 		log.Println(err)
@@ -74,16 +75,37 @@ func AddPomodoro(pomodoro *Pomodoro) string {
 func UpdatePomodoro(pomodoro *Pomodoro) (string, error) {
 	res := "Update pomodoro counter successfull"
 	db := connectDB()
+	defer db.Close()
 	updateErr := error(nil)
 
-	updateStatement := `UPDATE pomodoro SET counter = $1 WHERE date = $2`
-	rows, err := db.Exec(updateStatement, pomodoro.Counter, pomodoro.Date)
+	selectStatement := `SELECT counter FROM pomodoro where date = $1`
+	rows, err := db.Query(selectStatement, pomodoro.Date)
 	if err != nil {
 		log.Println(err)
 	}
 
-	if zeroRowAffected, _ := rows.RowsAffected(); zeroRowAffected == 0 {
-		updateErr = fmt.Errorf("update pomodoro counter failed\n Pomodoro with date %s does not exist", pomodoro.Date)
+	var isPomodoroExist = false
+	for rows.Next() {
+		isPomodoroExist = true
+
+		err = rows.Scan(&pomodoro.Counter)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
+	if isPomodoroExist {
+		pomodoro.Counter++
+
+		updateStatement := `UPDATE pomodoro SET counter = $1 WHERE date = $2`
+		_, err := db.Exec(updateStatement, pomodoro.Counter, pomodoro.Date)
+		if err != nil {
+			log.Println(err)
+		}
+
+	} else {
+		// updateErr = fmt.Errorf("update pomodoro counter failed\n Pomodoro with date %s does not exist", pomodoro.Date)
+		AddPomodoro(pomodoro)
 	}
 
 	return res, updateErr

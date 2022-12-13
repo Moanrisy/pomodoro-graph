@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -34,7 +33,7 @@ func main() {
 
 		// Render index
 		return c.Render("index", fiber.Map{
-			"Title": "Hello, World!",
+			"Title":     "Hello, World!",
 			"Pomodoros": pomodoros,
 		}, "layouts/pomodoro")
 	})
@@ -60,7 +59,6 @@ func main() {
 
 		res, err := UpdatePomodoro(p)
 
-		fmt.Println(err)
 		if err != nil {
 			return c.Send([]byte(err.Error()))
 		}
