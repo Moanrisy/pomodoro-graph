@@ -17,6 +17,24 @@ currentDate.setDate(currentDate.getDate() - 1);
 
 const months = document.querySelector(".months");
 const squares = document.querySelector(".squares");
+
+// TODO use this snippet to compare 2 different date options
+// const dateString = new Date();
+const dateString = currentDate.toLocaleDateString('en-US', {
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric'
+});
+console.log(dateString)
+
+const date2String = currentDate.toLocaleDateString("en-US", options)
+
+const test1 = new Date(dateString)
+const test2 = new Date(date2String)
+const date1ISOString = test1.toISOString()
+const date2ISOString = test2.toISOString() 
+console.log(date1ISOString == date2ISOString)
+
 for (var i = 1; i < 367; i++) {
   const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
@@ -47,9 +65,9 @@ for (var i = 1; i < 367; i++) {
   }
 
   // If we have reached the 11th previous month, break out of the loop
-  console.log(currentDate.getMonth());
+  // console.log(currentDate.getMonth());
   if (repeatedMonth && currentDate.getMonth() === initialMonth) {
-    console.log("Hmmm");
+    // console.log("Hmmm");
     var getMonthFromDate = new Date(currentDate.valueOf());
     // getMonthFromDate.setMonth(currentDate.getMonth() + 1);
     months.insertAdjacentHTML(
@@ -59,7 +77,7 @@ for (var i = 1; i < 367; i++) {
       })}</li>`
     );
     // break;
-    repeatedMonth = false
+    repeatedMonth = false;
   }
 
   // TODO update with real database
