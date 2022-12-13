@@ -62,15 +62,35 @@ for (var i = 1; i < 367; i++) {
     year: "numeric",
   });
 
+  var isPomodoroFound = false;
+
   for (var j = 0; j < pomodoros.length; j++) {
     var exactDate = JSON.stringify(pomodoros[j].date);
     exactDate = exactDate.replace(/"/g, "");
 
-    // console.log(matchedDate)
-
     if (exactDate == matchedDate) {
       // console.log(exactDate);
+
+      // TODO update with real database
+      const level = 3;
+      squares.insertAdjacentHTML(
+        "beforeend",
+        `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${formattedDate}</span> </li>`
+      );
+
+      isPomodoroFound = true;
+      break;
     }
+  }
+
+  if (!isPomodoroFound) {
+    const level = 0;
+    squares.insertAdjacentHTML(
+      "beforeend",
+      `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${formattedDate}</span> </li>`
+    );
+
+    isPomodoroFound = false;
   }
 
   // Move to the next day
@@ -79,17 +99,17 @@ for (var i = 1; i < 367; i++) {
   if (currentDate.getDate() === 1) {
     currentDate.setDate(1);
 
-    console.log(currentDate.getMonth());
+    // console.log(currentDate.getMonth());
     if (currentDate.getMonth() - 2 == -1) {
-      console.log("finally dsemeber again");
-      currentDate.setUTCFullYear(2023, 01)
+      // console.log("finally dsemeber again");
+      currentDate.setUTCFullYear(2023, 01);
       // currentDate.setMonth(currentDate.getMonth() - 1)
       // currentDate.setMonth(12)
     }
     currentDate.setMonth(currentDate.getMonth() - 2);
-    console.log(
-      currentDate.getMonth() - 2 + " " + currentDate.toLocaleDateString("en-US")
-    );
+    // console.log(
+    //   currentDate.getMonth() - 2 + " " + currentDate.toLocaleDateString("en-US")
+    // );
   }
 
   // If we have reached the 11th previous month, break out of the loop
@@ -107,14 +127,6 @@ for (var i = 1; i < 367; i++) {
     // break;
     repeatedMonth = false;
   }
-
-  // TODO update with real database
-  const level = Math.floor(Math.random() * 3);
-
-  squares.insertAdjacentHTML(
-    "beforeend",
-    `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${formattedDate}</span> </li>`
-  );
 }
 
 const hmms = document.querySelectorAll(".squares li");
