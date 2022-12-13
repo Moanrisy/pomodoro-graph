@@ -69,6 +69,24 @@ func PostIncrementPomodoro(pomodoro *Pomodoro) string {
 	return res
 }
 
+func UpdatePomodoro(pomodoro *Pomodoro) (string, error) {
+	res := "Update pomodoro counter successfull"
+	db := connectDB()
+	updateErr := error(nil)
+
+	updateStatement := `UPDATE pomodoro SET counter = $1 WHERE date = $2`
+	rows, err := db.Exec(updateStatement, pomodoro.Counter, pomodoro.Date)
+	if err != nil {
+		log.Println(err)
+	}
+
+	if zeroRowAffected, _ := rows.RowsAffected(); zeroRowAffected == 0 {
+		updateErr = fmt.Errorf("Update pomodoro counter failed\n Pomodoro with date %s does not exist", pomodoro.Date)
+	}
+
+	return res, updateErr
+}
+
 type Pomodoro struct {
 	Id          int
 	Inserted_at string
@@ -107,6 +125,24 @@ func main() {
 
 		res := PostIncrementPomodoro(p)
 
+		return c.Send([]byte(res))
+	})
+
+	app.Put("/increment", func(c *fiber.Ctx) error {
+		p := new(Pomodoro)
+
+		if err := c.BodyParser(p); err != nil {
+			log.Println(err)
+		}
+
+		res, err := UpdatePomodoro(p)
+
+		fmt.Println(err)
+		if err != nil {
+			return c.Send([]byte(err.Error()))
+		}
+
+		// return c.Send([]byte(res))
 		return c.Send([]byte(res))
 	})
 
