@@ -38,18 +38,19 @@ ul {
 .months {
   display: grid;
   grid-template-columns:
-    calc(var(--week-width) * 4) /* Jan */
-    calc(var(--week-width) * 4) /* Feb */
-    calc(var(--week-width) * 4) /* Mar */
-    calc(var(--week-width) * 5) /* Apr */
-    calc(var(--week-width) * 4) /* May */
-    calc(var(--week-width) * 4) /* Jun */
-    calc(var(--week-width) * 5) /* Jul */
-    calc(var(--week-width) * 4) /* Aug */
+    calc(var(--week-width) * 3) /* Dec */
+    calc(var(--week-width) * 5) /* Nov */
+    calc(var(--week-width) * 4) /* Oct */
     calc(var(--week-width) * 4) /* Sep */
-    calc(var(--week-width) * 5) /* Oct */
-    calc(var(--week-width) * 4) /* Nov */
-    calc(var(--week-width) * 5) /* Dec */;
+    calc(var(--week-width) * 5) /* Aug */
+    calc(var(--week-width) * 4) /* Jul */
+    calc(var(--week-width) * 4) /* Jun */
+    calc(var(--week-width) * 5) /* May */
+    calc(var(--week-width) * 4) /* Apr */
+    calc(var(--week-width) * 5) /* Mar */
+    calc(var(--week-width) * 4) /* Feb */
+    calc(var(--week-width) * 4) /* Jan */
+    calc(var(--week-width) * 4) /*  */;
 }
 
 .days,

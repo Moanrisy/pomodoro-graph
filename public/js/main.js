@@ -9,6 +9,8 @@ const options = {
 // Get the current date and time
 var currentDate = new Date();
 var currentMonth = currentDate.getMonth();
+var initialMonth = currentDate.getMonth();
+var repeatedMonth = false;
 
 // Set the day of the month to yesterday's date
 currentDate.setDate(currentDate.getDate() - 1);
@@ -31,6 +33,9 @@ for (var i = 1; i < 367; i++) {
     );
 
     currentMonth = currentDate.getMonth();
+    if (currentMonth == initialMonth) {
+      repeatedMonth = true;
+    }
   }
 
   // Move to the next day
@@ -42,8 +47,19 @@ for (var i = 1; i < 367; i++) {
   }
 
   // If we have reached the 11th previous month, break out of the loop
-  if (currentDate.getMonth() === currentDate.getMonth() - 11) {
-    break;
+  console.log(currentDate.getMonth());
+  if (repeatedMonth && currentDate.getMonth() === initialMonth) {
+    console.log("Hmmm");
+    var getMonthFromDate = new Date(currentDate.valueOf());
+    // getMonthFromDate.setMonth(currentDate.getMonth() + 1);
+    months.insertAdjacentHTML(
+      "beforeend",
+      `<li>${getMonthFromDate.toLocaleDateString("en-US", {
+        month: "short",
+      })}</li>`
+    );
+    // break;
+    repeatedMonth = false
   }
 
   const level = Math.floor(Math.random() * 3);
