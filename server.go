@@ -12,7 +12,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func connectDB() {
+func connectDB() *sql.DB {
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("Error loading .env file")
@@ -25,18 +25,47 @@ func connectDB() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
+	// defer db.Close()
 
 	// Try to ping the database
 	if err = db.Ping(); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully connected to the database!")
+	return db
+}
+
+func GetAllPomodoroActivity() {
+	db := connectDB()
+	rows, err := db.Query(`SELECT * FROM pomodoro`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer rows.Close()
+	defer db.Close()
+	var pomodoros pomodoro
+	for rows.Next() {
+
+		err = rows.Scan(&pomodoros.id, &pomodoros.inserted_at, &pomodoros.updated_at, &pomodoros.date, &pomodoros.id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(pomodoros)
+	}
+}
+
+type pomodoro struct {
+	id          int
+	inserted_at string
+	updated_at  string
+	date        string
+	counter     int
 }
 
 func main() {
 
-	connectDB()
+	GetAllPomodoroActivity()
 
 	// Create a new engine
 	engine := pug.New("./views", ".pug")
