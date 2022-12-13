@@ -81,7 +81,7 @@ func UpdatePomodoro(pomodoro *Pomodoro) (string, error) {
 	}
 
 	if zeroRowAffected, _ := rows.RowsAffected(); zeroRowAffected == 0 {
-		updateErr = fmt.Errorf("Update pomodoro counter failed\n Pomodoro with date %s does not exist", pomodoro.Date)
+		updateErr = fmt.Errorf("update pomodoro counter failed\n Pomodoro with date %s does not exist", pomodoro.Date)
 	}
 
 	return res, updateErr
