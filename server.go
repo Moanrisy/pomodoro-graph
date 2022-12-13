@@ -18,8 +18,6 @@ type Pomodoro struct {
 
 func main() {
 
-	GetAllPomodoroActivity()
-
 	// Create a new engine
 	engine := pug.New("./views", ".pug")
 
@@ -31,9 +29,13 @@ func main() {
 	app.Static("/", "./public")
 
 	app.Get("/", func(c *fiber.Ctx) error {
+
+		pomodoros := GetAllPomodoroActivity()
+
 		// Render index
 		return c.Render("index", fiber.Map{
 			"Title": "Hello, World!",
+			"Pomodoros": pomodoros,
 		}, "layouts/pomodoro")
 	})
 

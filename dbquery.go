@@ -33,7 +33,7 @@ func connectDB() *sql.DB {
 	return db
 }
 
-func GetAllPomodoroActivity() {
+func GetAllPomodoroActivity() []Pomodoro {
 	db := connectDB()
 	rows, err := db.Query(`SELECT * FROM pomodoro`)
 	if err != nil {
@@ -42,15 +42,19 @@ func GetAllPomodoroActivity() {
 
 	defer rows.Close()
 	defer db.Close()
-	var pomodoros Pomodoro
-	for rows.Next() {
 
-		err = rows.Scan(&pomodoros.Id, &pomodoros.Inserted_at, &pomodoros.Updated_at, &pomodoros.Date, &pomodoros.Counter)
+	var pomodoros []Pomodoro
+	
+	for rows.Next() {
+		var pomodoro Pomodoro
+
+		err = rows.Scan(&pomodoro.Id, &pomodoro.Inserted_at, &pomodoro.Updated_at, &pomodoro.Date, &pomodoro.Counter)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(pomodoros)
+		pomodoros = append(pomodoros, pomodoro)
 	}
+	return pomodoros
 }
 
 func AddPomodoro(pomodoro *Pomodoro) string {
