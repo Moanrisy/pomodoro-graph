@@ -71,11 +71,10 @@ for (var i = 1; i < 367; i++) {
     if (exactDate == matchedDate) {
       // console.log(exactDate);
 
-      // TODO update with real database
       const level = 3;
       squares.insertAdjacentHTML(
         "beforeend",
-        `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${formattedDate}</span> </li>`
+        `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${pomodoros[j].counter} Pomodoros on ${formattedDate}</span> </li>`
       );
 
       isPomodoroFound = true;

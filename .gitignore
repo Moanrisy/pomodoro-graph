@@ -1,3 +1,5 @@
 .env
+.dockerignore
 Dockerfile
 bin/
+fly.toml
