@@ -8,11 +8,11 @@ import (
 )
 
 type Pomodoro struct {
-	Id          int
-	Inserted_at string
-	Updated_at  string
-	Date        string `json:"date"`
-	Counter     int    `json:"counter"`
+	Id         int
+	InsertedAt string
+	UpdatedAt  string
+	Date       string `json:"date"`
+	Counter    int    `json:"counter"`
 }
 
 func main() {
