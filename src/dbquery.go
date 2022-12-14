@@ -11,10 +11,10 @@ import (
 )
 
 func connectDB() *sql.DB {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("Error loading .env file")
-	}
+	godotenv.Load()
+	// if err != nil {
+	// 	fmt.Println("Error loading .env file")
+	// }
 	password := os.Getenv("PASSWORD")
 
 	// Open a connection to the database
