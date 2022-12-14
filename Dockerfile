@@ -5,5 +5,5 @@ COPY go.sum ./
 RUN go mod download
 COPY ./src ./src
 RUN go build -o ./bin/pomodoro-graph ./src
-EXPOSE 8080
+EXPOSE 3000
 CMD [ "./bin/pomodoro-graph" ]
