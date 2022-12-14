@@ -87,15 +87,27 @@ ul {
 }
 
 .squares li[data-level="1"] {
-  background-color: #c6e48b;
+  background-color: #ecb0b0;
 }
 
 .squares li[data-level="2"] {
-  background-color: #7bc96f;
+  background-color: #ff0000;
 }
 
 .squares li[data-level="3"] {
-  background-color: #196127;
+  background-color: #ffa700;
+}
+
+.squares li[data-level="4"] {
+  background-color: #fff400;
+}
+
+.squares li[data-level="5"] {
+  background-color: #a3ff00;
+}
+
+.squares li[data-level="6"] {
+  background-color: #2cba00;
 }
 
 .squares li {

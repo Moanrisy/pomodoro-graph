@@ -71,7 +71,20 @@ for (var i = 1; i < 367; i++) {
     if (exactDate == matchedDate) {
       // console.log(exactDate);
 
-      const level = 3;
+      var level = 0;
+      if (pomodoros[j].counter >= 20) {
+        level = 6;
+      } else if (pomodoros[j].counter >= 16) {
+        level = 5;
+      } else if (pomodoros[j].counter >= 12 ) {
+        level = 4
+      } else if (pomodoros[j].counter >= 8 ) {
+        level = 3
+      } else if (pomodoros[j].counter >= 4 ) {
+        level = 2
+      } else if (pomodoros[j].counter >= 1 ) {
+        level = 1
+      }
       squares.insertAdjacentHTML(
         "beforeend",
         `<li data-date="${i}" data-level="${level}">          <span class="tooltiptext">${pomodoros[j].counter} Pomodoros on ${formattedDate}</span> </li>`
