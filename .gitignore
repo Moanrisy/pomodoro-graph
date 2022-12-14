@@ -3,4 +3,3 @@
 Dockerfile
 bin/
 fly.toml
-.idea/
