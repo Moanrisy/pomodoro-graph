@@ -76,14 +76,14 @@ for (var i = 1; i < 367; i++) {
         level = 6;
       } else if (pomodoros[j].counter >= 16) {
         level = 5;
-      } else if (pomodoros[j].counter >= 12 ) {
-        level = 4
-      } else if (pomodoros[j].counter >= 8 ) {
-        level = 3
-      } else if (pomodoros[j].counter >= 4 ) {
-        level = 2
-      } else if (pomodoros[j].counter >= 1 ) {
-        level = 1
+      } else if (pomodoros[j].counter >= 12) {
+        level = 4;
+      } else if (pomodoros[j].counter >= 8) {
+        level = 3;
+      } else if (pomodoros[j].counter >= 4) {
+        level = 2;
+      } else if (pomodoros[j].counter >= 1) {
+        level = 1;
       }
       squares.insertAdjacentHTML(
         "beforeend",
@@ -114,7 +114,7 @@ for (var i = 1; i < 367; i++) {
     // console.log(currentDate.getMonth());
     if (currentDate.getMonth() - 2 == -1) {
       // console.log("finally dsemeber again");
-      currentDate.setUTCFullYear(2023, 01);
+      currentDate.setUTCFullYear(2022, 12);
       // currentDate.setMonth(currentDate.getMonth() - 1)
       // currentDate.setMonth(12)
     }
