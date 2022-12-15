@@ -48,7 +48,7 @@ func GetAllPomodoroActivity() []Pomodoro {
 	for rows.Next() {
 		var pomodoro Pomodoro
 
-		err = rows.Scan(&pomodoro.Id, &pomodoro.Inserted_at, &pomodoro.Updated_at, &pomodoro.Date, &pomodoro.Counter)
+		err = rows.Scan(&pomodoro.Id, &pomodoro.InsertedAt, &pomodoro.UpdatedAt, &pomodoro.Date, &pomodoro.Counter)
 		if err != nil {
 			log.Fatal(err)
 		}
