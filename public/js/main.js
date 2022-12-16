@@ -111,10 +111,12 @@ for (var i = 1; i < 367; i++) {
   if (currentDate.getDate() === 1) {
     currentDate.setDate(1);
 
-    // console.log(currentDate.getMonth());
+    console.log(currentDate.getMonth());
     if (currentDate.getMonth() - 2 == -1) {
-      // console.log("finally dsemeber again");
-      currentDate.setUTCFullYear(2022, 12);
+      console.log("finally dsemeber again");
+      currentDate.setUTCFullYear(2023, 01);
+      // currentDate.setUTCFullYear(2022, 12);
+      console.log(currentDate.getMonth());
       // currentDate.setMonth(currentDate.getMonth() - 1)
       // currentDate.setMonth(12)
     }
